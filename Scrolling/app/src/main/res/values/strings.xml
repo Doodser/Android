@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Scrolling</string>
-    <string name="setting_1_text">Setting 1:</string>
-    <string name="setting_2_text">Setting 2:</string>
-    <string name="setting_3_text">Setting 3:</string>
-    <string name="setting_4_text">Setting 4:</string>
-    <string name="setting_5_text">Setting 5:</string>
+    <string name="settings_text">Настройки\n</string>
+
 </resources>

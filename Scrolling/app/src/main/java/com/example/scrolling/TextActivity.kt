@@ -17,7 +17,7 @@ class TextActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.textRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CustomItemsRecyclerAdapter(fillList())
+        recyclerView.adapter = ItemsRecyclerAdapter(fillList())
 
         val closeButton: Button = findViewById(R.id.closeTextRecycleViewButton)
         closeButton.setOnClickListener {
