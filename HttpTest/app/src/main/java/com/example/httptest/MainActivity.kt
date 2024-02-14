@@ -1,7 +1,9 @@
 package com.example.httptest
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 
 
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val recyclerView: RecyclerView = findViewById(R.id.eventsRecycler)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
         val queue = Volley.newRequestQueue(this)
         val url = "https://api.github.com/events"
 
@@ -27,8 +32,6 @@ class MainActivity : AppCompatActivity() {
             Request.Method.GET, url,
             { response ->
                 val json = Json {ignoreUnknownKeys = true}
-                val recyclerView: RecyclerView = findViewById(R.id.eventsRecycler)
-                recyclerView.layoutManager = LinearLayoutManager(this)
                 recyclerView.adapter = EventRecyclerAdapter(json.decodeFromString(response.toString()))
             },
             { e ->
@@ -36,8 +39,5 @@ class MainActivity : AppCompatActivity() {
             })
 
         queue.add(stringRequest)
-
-
-
     }
 }

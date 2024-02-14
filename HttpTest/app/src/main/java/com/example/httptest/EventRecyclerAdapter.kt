@@ -1,5 +1,8 @@
 package com.example.httptest
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
+import java.net.URL
+
 
 class EventRecyclerAdapter(private val events: Array<Event>):
     RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder>() {
@@ -36,11 +43,16 @@ class EventRecyclerAdapter(private val events: Array<Event>):
     override fun getItemCount(): Int = events.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.with(holder.avatar.context)
-            .load(events[position].actor["avatar_url"].toString().replace("\"", ""))
-            .centerCrop()
-            .resize(holder.avatar.maxWidth, holder.avatar.maxHeight)
-            .into(holder.avatar)
+        GlobalScope.async {
+            try {
+                val input = URL(events[position].actor["avatar_url"].toString().replace("\"", "")).openStream()
+                holder.avatar.setImageBitmap(BitmapFactory.decodeStream(input))
+            } catch (e: Exception) {
+                Log.e("Error", e.message!!)
+                e.printStackTrace()
+            }
+        }
+
         holder.author.text = events[position].actor["display_login"].toString().replace("\"", "")
         holder.repo.text = events[position].repo["name"].toString().replace("\"", "")
         holder.type.text = events[position].type
