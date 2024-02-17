@@ -71,21 +71,21 @@ class SwitchesRecyclerAdapter(private val switches: List<SwitchCompat>,
                         {response ->
                             val responseMap = Json.decodeFromString<Map<String, Boolean>>(response.toString())
                             if (responseMap[holder.switch.text] != holder.switch.isChecked) {
-                                holder.switch.isChecked = responseMap[holder.switch.text]!!
+                                holder.switch.isChecked = (responseMap[holder.switch.text] == true)
                             }
                         },
                         {e ->
                             e.printStackTrace()
+
                         }
                     )
 
                     queue.add(jsonRequest)
                 }
             },
-            1000,
-            3500
+            100,
+            2000
         )
-
     }
 
     override fun getItemCount() = switches.size
