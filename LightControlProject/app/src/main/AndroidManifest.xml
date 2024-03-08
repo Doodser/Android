@@ -12,20 +12,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IoTProject"
-        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.LightControlProject"
         tools:targetApi="31">
         <activity
-            android:name=".RoomActivity"
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RoomsSwitchActivity"
             android:exported="false" />
         <activity
             android:name=".RoomsActivity"
             android:exported="false" />
         <activity
-            android:name=".SwitchesActivity"
+            android:name=".LightSwitchActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity_Menu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
